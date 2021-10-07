@@ -41,6 +41,14 @@ public class GameManager : MonoBehaviour
         {
             spawnPoints.Add(trans);
         }
+        PlayerInputManager.instance.EnableJoining();
+        //Une al primer jugador
+        PlayerInputManager.instance.JoinPlayer(playerIndex: 0, controlScheme: "Keyboard&Mouse" ,pairWithDevice: Keyboard.current);
+        //Une al segundo jugador
+        var input = PlayerInputManager.instance.JoinPlayer(playerIndex: 1);
+        //Debug.Log(PlayerInput.all.Count);
+        //Debug.Log($"input is{input}");
+        PlayerInput.all[1].SwitchCurrentControlScheme(controlScheme: "Keyboard2", Keyboard.current);
     }
 
     public void UpdateKills(int killerIndex)
@@ -50,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void OnSpawnPlayer(PlayerInput input)
     {
+        Debug.Log("call me");
         killNumber.Add(0);
 
         int randomIndex = Random.Range(0, spawnPoints.Count);

@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
         instance = null;
     }
 
-    void Start()
+    void Awake()
     {
         instance = this;
     }
@@ -50,7 +50,7 @@ public class Timer : MonoBehaviour
     void DisplayTime(float time)
     {
        
-        Debug.Log(text.Count);
+
         foreach(TextMeshProUGUI timerText in text)
         {
 
