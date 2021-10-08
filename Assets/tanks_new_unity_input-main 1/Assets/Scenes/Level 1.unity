@@ -156,6 +156,7 @@ MonoBehaviour:
   winnerBoard: {fileID: 1747640395}
   spawnPositionManager: {fileID: 1084258318}
   killNumber: 
+  playerData: {fileID: 11400000, guid: 0db31f5320039a44b891e07ad3366a3e, type: 2}
 --- !u!4 &4100378
 Transform:
   m_ObjectHideFlags: 0

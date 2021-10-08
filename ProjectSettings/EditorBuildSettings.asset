@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/tanks_new_unity_input-main 1/Assets/Scenes/Menu.unity
     guid: a19659337b701944e9991fc0b3b98382
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/tanks_new_unity_input-main 1/Assets/Scenes/Lobby.unity
+    guid: f878870ba8e7a1449a92acd76fb7cf14
+  - enabled: 1
+    path: Assets/tanks_new_unity_input-main 1/Assets/Scenes/Level 1.unity
+    guid: 62c158724aeb92741af49a1fc62384b0
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

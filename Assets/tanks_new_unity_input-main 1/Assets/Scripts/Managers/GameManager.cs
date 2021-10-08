@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     List<int> killNumber = new List<int>();
 
+    public PlayerData playerData;
+
     int index = 0;
 
     //Hace solo 1 vez la instance y solo cuando se destruye
@@ -41,14 +43,22 @@ public class GameManager : MonoBehaviour
         {
             spawnPoints.Add(trans);
         }
-        PlayerInputManager.instance.EnableJoining();
-        //Une al primer jugador
-        PlayerInputManager.instance.JoinPlayer(playerIndex: 0, controlScheme: "Keyboard&Mouse" ,pairWithDevice: Keyboard.current);
-        //Une al segundo jugador
-        var input = PlayerInputManager.instance.JoinPlayer(playerIndex: 1);
-        //Debug.Log(PlayerInput.all.Count);
-        //Debug.Log($"input is{input}");
-        PlayerInput.all[1].SwitchCurrentControlScheme(controlScheme: "Keyboard2", Keyboard.current);
+
+        foreach(PlayerInfo info in playerData.playerData)
+        {
+           var inputs =  PlayerInputManager.instance.JoinPlayer();
+
+            PlayerInput.all[inputs.playerIndex].SwitchCurrentControlScheme(controlScheme: info.scheme, info.device);
+        }
+
+        //PlayerInputManager.instance.EnableJoining();
+        ////Une al primer jugador
+        //PlayerInputManager.instance.JoinPlayer(playerIndex: 0, controlScheme: "Keyboard&Mouse" ,pairWithDevice: Keyboard.current);
+        ////Une al segundo jugador
+        //var input = PlayerInputManager.instance.JoinPlayer(playerIndex: 1);
+        ////Debug.Log(PlayerInput.all.Count);
+        ////Debug.Log($"input is{input}");
+        //PlayerInput.all[1].SwitchCurrentControlScheme(controlScheme: "Keyboard2", Keyboard.current);
     }
 
     public void UpdateKills(int killerIndex)

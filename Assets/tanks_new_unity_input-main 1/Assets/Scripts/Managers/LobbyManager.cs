@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class LobbyManager : MonoBehaviour
 
     public Transform joinPosManager;
 
+    public PlayerData scriptablePlayerDataObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,20 +26,27 @@ public class LobbyManager : MonoBehaviour
         join1.performed += (call) => JoinPlayer(call, 0);
         join2.performed += (call) => JoinPlayer(call, 1);
 
-       // PlayerInfo info = new PlayerInfo();
+        scriptablePlayerDataObject.playerData = new List<PlayerInfo>();
 
     }
 
     void JoinPlayer(InputAction.CallbackContext callback, int index)
     {
         if (joinControllers.Contains(index)) return;
-
+        Debug.Log("antes de join");
         var input = PlayerInputManager.instance.JoinPlayer();
+        Debug.Log("despues de join");
 
         string scheme = "Keyboard&Mouse";
         if (index == 1) scheme = "Keyboard2";
 
         PlayerInput.all[input.playerIndex].SwitchCurrentControlScheme(controlScheme: scheme, Keyboard.current);
+
+        var playerInfo = new PlayerInfo(scheme, Keyboard.current);
+
+        int playerIndex = scriptablePlayerDataObject.playerData.Count - 1;
+
+        scriptablePlayerDataObject.playerData[playerIndex] = playerInfo;
 
         joinControllers.Add(index);
         //join1.Disable();
@@ -53,8 +62,14 @@ public class LobbyManager : MonoBehaviour
     {
         Debug.Log("me uni");
         Transform correctPos = joinPosManager.GetChild(input.playerIndex);
-        Debug.Log("segunda vuelta");
+        
         input.transform.SetPositionAndRotation(correctPos.position, correctPos.rotation);
-        Debug.Log("apareci");
+
+        scriptablePlayerDataObject.playerData.Add(new PlayerInfo(input.currentControlScheme, input.devices[0]));
+    }
+
+    public void GoToGame()
+    {
+        SceneManager.LoadScene(2);
     }
 }
